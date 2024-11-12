@@ -223,5 +223,10 @@ class FeedsXPathParserXMLTestCase extends FeedsXPathParserWebTestCase {
     $feed_node_edit_url = 'node/' . $nid . '/edit';
     $this->assertText('Created 3 nodes');
     $this->backdropGet('feeds-xpathparser-list');
+
+    // Test empty import.
+    $nid = $this->createFeedNode('syndication', $path . 'test_empty.xml', 'Testing XPath XML Parser with empty feed');
+    $feed_node_edit_url = 'node/' . $nid . '/edit';
+    $this->assertText('The XML document is empty.');
   }
 }
