@@ -21,6 +21,22 @@ class FeedsXPathParserWebTestCase extends FeedsWebTestCase {
   public $feeds_base;
 
   /**
+   * Add some properties used in tests.
+   *
+   * @var string
+   */
+  public $query;
+  public $word_boundaries;
+  public $prev_boundary;
+  public $in_quotes;
+  public $quote_char;
+  public $word;
+  public $skip_next_word;
+  public $axis;
+  public $i;
+  public $output;
+
+  /**
    * Set up test.
    */
   public function setUp() {
