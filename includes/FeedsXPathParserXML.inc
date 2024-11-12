@@ -27,6 +27,9 @@ class FeedsXPathParserXML extends FeedsXPathParserBase {
     else {
       $raw = $fetcher_result->getRaw();
     }
+    if (empty($raw)) {
+      throw new Exception(t('The XML document is empty.'));
+    }
 
     $options = LIBXML_NONET;
     $options |= defined('LIBXML_COMPACT') ? LIBXML_COMPACT : 0;
