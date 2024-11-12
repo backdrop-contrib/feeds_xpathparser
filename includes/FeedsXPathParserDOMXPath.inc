@@ -97,7 +97,7 @@ class FeedsXPathParserDOMXPath extends DOMXPath {
     }
     $output .= '</ul>';
 
-    drupal_set_message($output);
+    backdrop_set_message($output);
   }
 
   /**
@@ -125,7 +125,7 @@ class FeedsXPathParserDOMXPath extends DOMXPath {
     if (is_object($this->error) && $this->config['errors']) {
 
       if ($this->error->level == LIBXML_ERR_ERROR) {
-        drupal_set_message(
+        backdrop_set_message(
           t('There was an error during the XPath query: %query.<br />Libxml returned the message: %message, with the error code: %code.', array(
             '%query' => $query,
             '%message' => trim($this->error->message),
@@ -135,7 +135,7 @@ class FeedsXPathParserDOMXPath extends DOMXPath {
           FALSE);
       }
       elseif ($this->error->level == LIBXML_ERR_WARNING) {
-        drupal_set_message(
+        backdrop_set_message(
           t('There was an error during the XPath query: %query.<br />Libxml returned the message: %message, with the error code: %code.', array(
             '%query' => $query,
             '%message' => trim($this->error->message),

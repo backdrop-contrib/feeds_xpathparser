@@ -1,0 +1,7 @@
+type = module
+name = Feeds XPath Parser Test
+description = Parse an XML or HTML document using XPath.
+package = Feeds
+backdrop = 1.x
+
+hidden = true

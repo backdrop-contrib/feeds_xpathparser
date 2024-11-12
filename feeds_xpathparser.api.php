@@ -41,5 +41,5 @@ function hook_feeds_xpathparser_filter_domnode(DOMNode $node, DOMDocument $docum
     $debug = $document->saveXML($node, LIBXML_NOEMPTYTAG);
   }
 
-  drupal_set_message($debug);
+  backdrop_set_message($debug);
 }

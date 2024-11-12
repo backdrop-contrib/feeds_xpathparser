@@ -1,0 +1,17 @@
+[FeedsXPathParserQueryParserTestCase]
+name = Query Parser
+description = Unit tests for the query parser inside Feeds XPath Parser.
+group = Feeds XPath Parser
+file = feeds_xpathparser_query_parser.test
+
+[FeedsXPathParserXMLTestCase]
+name = XML Parser
+description = Regression tests for Feeds XPath XML parser.
+group = Feeds XPath Parser
+file = feeds_xpathparser_parser_xml.test
+
+[FeedsXPathParseHTMLTestCase]
+name = HTML Parser
+description = Regression tests for Feeds XPath HTML parser.
+group = Feeds XPath Parser
+file = feeds_xpathparser_parser_html.test
