@@ -62,7 +62,7 @@ function feeds_xpathparser_autoload_info() {
     'FeedsXPathParserBase' => 'FeedsXPathParserBase.inc',
     'FeedsXPathParserHTML' => 'FeedsXPathParserHTML.inc',
     'FeedsXPathParserXML' => 'FeedsXPathParserXML.inc',
-	'FeedsXPathParserQueryParser' => 'FeedsXPathParserQueryParser.inc',
-	'FeedsXPathParserDOMXPath' => 'FeedsXPathParserDOMXPath.inc',
+	  'FeedsXPathParserQueryParser' => 'FeedsXPathParserQueryParser.inc',
+	  'FeedsXPathParserDOMXPath' => 'FeedsXPathParserDOMXPath.inc',
   );
 }

@@ -14,6 +14,23 @@
  *   An XPath query string with the __default__ namespace added.
  */
 class FeedsXPathParserQueryParser {
+
+  /**
+   * Add some properties used within this class to avoid dynamic properties.
+   *
+   * @var string
+   */
+  public $query;
+  public $word_boundaries;
+  public $prev_boundary;
+  public $in_quotes;
+  public $quote_char;
+  public $word;
+  public $skip_next_word;
+  public $axis;
+  public $i;
+  public $output;
+
   function __construct($query) {
     $this->query = preg_replace('/\s+\(\s*/', '(', $query);
 
