@@ -73,7 +73,7 @@ class FeedsXPathParserXMLTestCase extends FeedsXPathParserWebTestCase {
     $edit = array(
       'feeds[FeedsXPathParserXML][xpath][exp][debug][xpathparser:0]' => TRUE,
     );
-    $this->postAndCheck($feed_node_edit_url, $edit, 'Save', 'Basic page Testing XPath XML Parser has been updated.');
+    $this->postAndCheck($feed_node_edit_url, $edit, 'Save', 'Page Testing XPath XML Parser has been updated.');
     $this->backdropPost('node/' . $nid . '/import', array(), 'Import');
     $this->assertText('&lt;title&gt;Atom-Powered Robots Run Amok&lt;/title&gt;');
     $this->assertText('&lt;title&gt;My dog Jack is the best.&lt;/title&gt;');
@@ -84,14 +84,14 @@ class FeedsXPathParserXMLTestCase extends FeedsXPathParserWebTestCase {
     $edit = array(
       'feeds[FeedsXPathParserXML][xpath][exp][debug][xpathparser:0]' => FALSE,
     );
-    $this->postAndCheck($feed_node_edit_url, $edit, 'Save', 'Basic page Testing XPath XML Parser has been updated.');
+    $this->postAndCheck($feed_node_edit_url, $edit, 'Save', 'Page Testing XPath XML Parser has been updated.');
 
     // Check if update existing nodes works.
     $this->setSettings('xpath_xml', 'FeedsNodeProcessor', array('update_existing' => 2));
     $edit = array(
       'feeds[FeedsHTTPFetcher][source]' => $path . 'sample_atom_feed_updated.xml',
     );
-    $this->postAndCheck($feed_node_edit_url, $edit, 'Save', 'Basic page Testing XPath XML Parser has been updated.');
+    $this->postAndCheck($feed_node_edit_url, $edit, 'Save', 'Page Testing XPath XML Parser has been updated.');
     $this->backdropPost('node/' . $nid . '/import', array(), 'Import');
     $this->assertText('Updated 1 node.');
     $this->backdropGet('node');
@@ -108,7 +108,7 @@ class FeedsXPathParserXMLTestCase extends FeedsXPathParserWebTestCase {
     $edit = array(
       'feeds[FeedsHTTPFetcher][source]' => $path . 'sample_atom_feed.xml',
     );
-    $this->postAndCheck($feed_node_edit_url, $edit, 'Save', 'Basic page Testing XPath XML Parser has been updated.');
+    $this->postAndCheck($feed_node_edit_url, $edit, 'Save', 'Page Testing XPath XML Parser has been updated.');
     $this->backdropPost('node/' . $nid . '/import', array(), 'Import');
     $this->assertText('Updated 1 node.');
     $this->backdropGet('node');
@@ -127,7 +127,7 @@ class FeedsXPathParserXMLTestCase extends FeedsXPathParserWebTestCase {
       'feeds[FeedsXPathParserXML][xpath][sources][xpathparser:1]' => 'baz',
       'feeds[FeedsXPathParserXML][xpath][sources][xpathparser:2]' => 'wee',
     );
-    $this->postAndCheck($feed_node_edit_url, $edit, 'Save', 'Basic page Testing XPath XML Parser has been updated.');
+    $this->postAndCheck($feed_node_edit_url, $edit, 'Save', 'Page Testing XPath XML Parser has been updated.');
 
     // Assert the we don't create an empty node when XPath values don't return anything.
     // That happened at one point.
@@ -155,7 +155,7 @@ class FeedsXPathParserXMLTestCase extends FeedsXPathParserWebTestCase {
       'feeds[FeedsXPathParserXML][xpath][sources][xpathparser:1]' => 'id',
       'feeds[FeedsXPathParserXML][xpath][sources][xpathparser:2]' => 'id',
     );
-    $this->postAndCheck($feed_node_edit_url, $edit, 'Save', 'Basic page Testing XPath XML Parser has been updated.');
+    $this->postAndCheck($feed_node_edit_url, $edit, 'Save', 'Page Testing XPath XML Parser has been updated.');
 
     // Change importer defaults.
     $edit = array(
