@@ -554,7 +554,7 @@ abstract class FeedsXPathParserBase extends FeedsParser {
    */
   protected function errorStart() {
     libxml_clear_errors();
-    if (function_exists('libxml_disable_entity_loader')) {
+    if (function_exists('libxml_disable_entity_loader') && \PHP_VERSION_ID < 80000) {
       $this->loader = libxml_disable_entity_loader(TRUE);
     }
 
@@ -594,7 +594,7 @@ abstract class FeedsXPathParserBase extends FeedsParser {
     libxml_clear_errors();
     libxml_use_internal_errors($use);
 
-    if (function_exists('libxml_disable_entity_loader') && isset($this->loader)) {
+    if (function_exists('libxml_disable_entity_loader') && \PHP_VERSION_ID < 80000 && isset($this->loader)) {
       libxml_disable_entity_loader($this->loader);
       unset($this->loader);
     }
