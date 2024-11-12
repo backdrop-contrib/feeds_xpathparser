@@ -64,7 +64,7 @@ class FeedsXPathParserXMLTestCase extends FeedsXPathParserWebTestCase {
 
     // Assert accuracy of aggregated content. I find humor in using our own
     // issue queue to run tests against.
-    $this->backdropGet('node');
+    $this->backdropGet('feeds-xpathparser-list');
     $this->assertText('Atom-Powered Robots Run Amok');
     $this->assertText('My dog Jack is the best.');
     $this->assertText('Physics is cool.');
@@ -94,7 +94,7 @@ class FeedsXPathParserXMLTestCase extends FeedsXPathParserWebTestCase {
     $this->postAndCheck($feed_node_edit_url, $edit, 'Save', 'Page Testing XPath XML Parser has been updated.');
     $this->backdropPost('node/' . $nid . '/import', array(), 'Import');
     $this->assertText('Updated 1 node.');
-    $this->backdropGet('node');
+    $this->backdropGet('feeds-xpathparser-list');
     $this->assertText('Atom-Powered Robots Run Amok');
     $this->assertText('My dog Jack is the best.');
     $this->assertText('Physics is really cool.'); // The one that changed.
@@ -111,7 +111,7 @@ class FeedsXPathParserXMLTestCase extends FeedsXPathParserWebTestCase {
     $this->postAndCheck($feed_node_edit_url, $edit, 'Save', 'Page Testing XPath XML Parser has been updated.');
     $this->backdropPost('node/' . $nid . '/import', array(), 'Import');
     $this->assertText('Updated 1 node.');
-    $this->backdropGet('node');
+    $this->backdropGet('feeds-xpathparser-list');
     $this->assertText('Atom-Powered Robots Run Amok');
     $this->assertText('My dog Jack is the best.');
     $this->assertText('Physics is cool.'); // The one that changed.
@@ -222,6 +222,6 @@ class FeedsXPathParserXMLTestCase extends FeedsXPathParserWebTestCase {
     $nid = $this->createFeedNode('syndication', $path . 'rewrite_test.xml', 'Testing XPath XML Parser');
     $feed_node_edit_url = 'node/' . $nid . '/edit';
     $this->assertText('Created 3 nodes');
-    $this->backdropGet('node');
+    $this->backdropGet('feeds-xpathparser-list');
   }
 }
