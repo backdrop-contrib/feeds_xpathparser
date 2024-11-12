@@ -31,9 +31,9 @@ class FeedsXPathParserQueryParser {
   }
 
   function start() {
-    for ($i=0; $i < drupal_strlen($this->query); $i++) {
+    for ($i=0; $i < backdrop_strlen($this->query); $i++) {
       $this->i = $i;
-      $c = drupal_substr($this->query, $i, 1);
+      $c = backdrop_substr($this->query, $i, 1);
 
       if ($c == '"' || $c == "'") {
         $this->handle_quote($c);
@@ -90,12 +90,12 @@ class FeedsXPathParserQueryParser {
       return;
     }
 
-    if ($c == ':' && drupal_substr($this->query, $this->i + 1, 1) == ':') {
+    if ($c == ':' && backdrop_substr($this->query, $this->i + 1, 1) == ':') {
       $this->axis = $this->word;
     }
 
-    if ($c == ':' && drupal_substr($this->query, $this->i - 1, 1) != ':'  &&
-        drupal_substr($this->query, $this->i + 1, 1) != ':') {
+    if ($c == ':' && backdrop_substr($this->query, $this->i - 1, 1) != ':'  &&
+        backdrop_substr($this->query, $this->i + 1, 1) != ':') {
       $this->output .= $this->word;
       $this->skip_next_word = TRUE;
       return;

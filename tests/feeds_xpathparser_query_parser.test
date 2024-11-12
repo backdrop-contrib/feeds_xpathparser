@@ -4,18 +4,11 @@
  * @file
  * Test cases for the xpath query parser.
  */
-class FeedsXPathParserQueryParserTestCase extends DrupalUnitTestCase {
-  /**
-   * Describe this test.
-   */
-  public static function getInfo() {
-    return array(
-      'name' => t('Query Parser'),
-      'description' => t('Unit tests for the query parser inside Feeds XPath Parser.'),
-      'group' => t('Feeds XPath Parser'),
-    );
-  }
 
+ // Temporarily include the parent class until core provides test autoloading.
+include_once(__DIR__ . '/feeds_xpathparser.test');
+
+class FeedsXPathParserQueryParserTestCase extends BackdropUnitTestCase {
   public function setUp() {
     parent::setUp();
     module_load_include('inc', 'feeds_xpathparser', 'FeedsXPathParserQueryParser');

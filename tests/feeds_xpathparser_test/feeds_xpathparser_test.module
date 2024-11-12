@@ -1,0 +1,4 @@
+<?php
+
+// Empty module file for testing purposes. Config creates a view that is used
+// in the tests.

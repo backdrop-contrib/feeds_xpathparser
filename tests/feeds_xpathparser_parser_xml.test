@@ -5,21 +5,13 @@
  * Tests for FeedsXPathParserXML.inc.
  */
 
+// Temporarily include the parent class until core provides test autoloading.
+include_once(__DIR__ . '/feeds_xpathparser.test');
+
 /**
  * Test single feeds.
  */
 class FeedsXPathParserXMLTestCase extends FeedsXPathParserWebTestCase {
-
-  /**
-   * Describe this test.
-   */
-  public static function getInfo() {
-    return array(
-      'name' => 'XML Parser',
-      'description' => 'Regression tests for Feeds XPath XML parser.',
-      'group' => 'Feeds XPath Parser',
-    );
-  }
 
   /**
    * Run tests.
@@ -30,7 +22,7 @@ class FeedsXPathParserXMLTestCase extends FeedsXPathParserWebTestCase {
     $this->setPlugin('xpath_xml', 'FeedsXPathParserXML');
     $importer_url = $this->feeds_base . '/xpath_xml/settings/FeedsXPathParserXML';
     // Check help message.
-    $this->drupalGet($importer_url);
+    $this->backdropGet($importer_url);
     $this->assertText('No XPath mappings are defined.');
 
     $this->addMappings('xpath_xml', array(
@@ -59,7 +51,7 @@ class FeedsXPathParserXMLTestCase extends FeedsXPathParserWebTestCase {
     $this->postAndCheck($importer_url, $edit, 'Save', 'Your changes have been saved.');
 
     // Test import.
-    $path = $GLOBALS['base_url'] . '/' . drupal_get_path('module', 'feeds_xpathparser') . '/tests/feeds_xpathparser/';
+    $path = $GLOBALS['base_url'] . '/' . backdrop_get_path('module', 'feeds_xpathparser') . '/tests/feeds_xpathparser/';
     // We use an atom feed so that we can test that default namespaces are being
     // applied appropriately.
     $nid = $this->createFeedNode('xpath_xml', $path . 'sample_atom_feed.xml', 'Testing XPath XML Parser');
@@ -67,12 +59,12 @@ class FeedsXPathParserXMLTestCase extends FeedsXPathParserWebTestCase {
     $this->assertText('Created 3 nodes');
 
     // Import again, this verifies url field was mapped correctly.
-    $this->drupalPost('node/' . $nid . '/import', array(), 'Import');
+    $this->backdropPost('node/' . $nid . '/import', array(), 'Import');
     $this->assertText('There are no new nodes');
 
     // Assert accuracy of aggregated content. I find humor in using our own
     // issue queue to run tests against.
-    $this->drupalGet('node');
+    $this->backdropGet('node');
     $this->assertText('Atom-Powered Robots Run Amok');
     $this->assertText('My dog Jack is the best.');
     $this->assertText('Physics is cool.');
@@ -82,7 +74,7 @@ class FeedsXPathParserXMLTestCase extends FeedsXPathParserWebTestCase {
       'feeds[FeedsXPathParserXML][xpath][exp][debug][xpathparser:0]' => TRUE,
     );
     $this->postAndCheck($feed_node_edit_url, $edit, 'Save', 'Basic page Testing XPath XML Parser has been updated.');
-    $this->drupalPost('node/' . $nid . '/import', array(), 'Import');
+    $this->backdropPost('node/' . $nid . '/import', array(), 'Import');
     $this->assertText('&lt;title&gt;Atom-Powered Robots Run Amok&lt;/title&gt;');
     $this->assertText('&lt;title&gt;My dog Jack is the best.&lt;/title&gt;');
     $this->assertText('&lt;title&gt;Physics is cool.&lt;/title&gt;');
@@ -100,15 +92,15 @@ class FeedsXPathParserXMLTestCase extends FeedsXPathParserWebTestCase {
       'feeds[FeedsHTTPFetcher][source]' => $path . 'sample_atom_feed_updated.xml',
     );
     $this->postAndCheck($feed_node_edit_url, $edit, 'Save', 'Basic page Testing XPath XML Parser has been updated.');
-    $this->drupalPost('node/' . $nid . '/import', array(), 'Import');
+    $this->backdropPost('node/' . $nid . '/import', array(), 'Import');
     $this->assertText('Updated 1 node.');
-    $this->drupalGet('node');
+    $this->backdropGet('node');
     $this->assertText('Atom-Powered Robots Run Amok');
     $this->assertText('My dog Jack is the best.');
     $this->assertText('Physics is really cool.'); // The one that changed.
     $this->assertNoText('Physics is cool.'); // Make sure the old node is changed.
     // Be extra sure we updated.
-    $this->drupalGet('node/4');
+    $this->backdropGet('node/4');
     $this->assertText('Physics is really cool.');
 
     // Check if replace existing nodes works.
@@ -117,15 +109,15 @@ class FeedsXPathParserXMLTestCase extends FeedsXPathParserWebTestCase {
       'feeds[FeedsHTTPFetcher][source]' => $path . 'sample_atom_feed.xml',
     );
     $this->postAndCheck($feed_node_edit_url, $edit, 'Save', 'Basic page Testing XPath XML Parser has been updated.');
-    $this->drupalPost('node/' . $nid . '/import', array(), 'Import');
+    $this->backdropPost('node/' . $nid . '/import', array(), 'Import');
     $this->assertText('Updated 1 node.');
-    $this->drupalGet('node');
+    $this->backdropGet('node');
     $this->assertText('Atom-Powered Robots Run Amok');
     $this->assertText('My dog Jack is the best.');
     $this->assertText('Physics is cool.'); // The one that changed.
     $this->assertNoText('Physics is really cool.'); // Make sure the old node is changed.
     // Be extra sure we updated.
-    $this->drupalGet('node/4');
+    $this->backdropGet('node/4');
     $this->assertText('Physics is cool.');
 
     // Test that overriding default settings works.
@@ -139,7 +131,7 @@ class FeedsXPathParserXMLTestCase extends FeedsXPathParserWebTestCase {
 
     // Assert the we don't create an empty node when XPath values don't return anything.
     // That happened at one point.
-    $this->drupalPost('node/' . $nid . '/import', array(), 'Import');
+    $this->backdropPost('node/' . $nid . '/import', array(), 'Import');
     $this->assertText('There are no new nodes.');
 
     // Test that validation works.
@@ -147,7 +139,7 @@ class FeedsXPathParserXMLTestCase extends FeedsXPathParserWebTestCase {
       'feeds[FeedsXPathParserXML][xpath][context]' => 'sdf asf',
       'feeds[FeedsXPathParserXML][xpath][sources][xpathparser:0]' => 'asdf[sadfas asdf]',
     );
-    $this->drupalPost($feed_node_edit_url, $edit, 'Save');
+    $this->backdropPost($feed_node_edit_url, $edit, 'Save');
     // Check for valid error messages.
     $this->assertText('There was an error with the XPath selector: Invalid expression');
     $this->assertText('There was an error with the XPath selector: Invalid predicate');
@@ -175,7 +167,7 @@ class FeedsXPathParserXMLTestCase extends FeedsXPathParserWebTestCase {
     $this->postAndCheck($importer_url, $edit, 'Save', 'Your changes have been saved.');
 
     // Make sure the changes propigated.
-    $this->drupalGet($feed_node_edit_url);
+    $this->backdropGet($feed_node_edit_url);
     $this->assertFieldByName('feeds[FeedsXPathParserXML][xpath][context]', '//tr');
     $this->assertFieldByName('feeds[FeedsXPathParserXML][xpath][sources][xpathparser:0]', 'booya');
     $this->assertFieldByName('feeds[FeedsXPathParserXML][xpath][sources][xpathparser:1]', 'boyz');
@@ -185,7 +177,7 @@ class FeedsXPathParserXMLTestCase extends FeedsXPathParserWebTestCase {
 
     // Check that allow_override works as expected.
     $this->setSettings('xpath_xml', 'FeedsXPathParserXML', array('xpath[allow_override]' => FALSE));
-    $this->drupalGet($feed_node_edit_url);
+    $this->backdropGet($feed_node_edit_url);
     $this->assertNoText('XPath Parser Settings');
     $this->assertNoField('xpath[context]');
   }
@@ -224,12 +216,12 @@ class FeedsXPathParserXMLTestCase extends FeedsXPathParserWebTestCase {
     $this->postAndCheck($importer_url, $edit, 'Save', 'Your changes have been saved.');
 
     // Test import.
-    $path = $GLOBALS['base_url'] . '/' . drupal_get_path('module', 'feeds_xpathparser') . '/tests/feeds_xpathparser/';
+    $path = $GLOBALS['base_url'] . '/' . backdrop_get_path('module', 'feeds_xpathparser') . '/tests/feeds_xpathparser/';
     // We use an atom feed so that we can test that default namespaces are being
     // applied appropriately.
     $nid = $this->createFeedNode('syndication', $path . 'rewrite_test.xml', 'Testing XPath XML Parser');
     $feed_node_edit_url = 'node/' . $nid . '/edit';
     $this->assertText('Created 3 nodes');
-    $this->drupalGet('node');
+    $this->backdropGet('node');
   }
 }
